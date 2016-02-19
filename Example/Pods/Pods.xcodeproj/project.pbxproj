@@ -622,6 +622,7 @@
 		621EA900163F03F421BDFA5F /* libPods-MWPhotoBrowser_Example-MBProgressHUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MWPhotoBrowser_Example-MBProgressHUD.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		62C668772773AD8693356A13 /* Pods-MWPhotoBrowser_Example-MWPhotoBrowser-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MWPhotoBrowser_Example-MWPhotoBrowser-dummy.m"; sourceTree = "<group>"; };
 		634CF40EBF9AD150AC82DAE3 /* UIImage+GIF.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+GIF.h"; path = "SDWebImage/UIImage+GIF.h"; sourceTree = "<group>"; };
+		6371EEEA1C77BC1900AE1C91 /* button-close.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "button-close.pdf"; path = "../../../../../Desktop/button-close.pdf"; sourceTree = "<group>"; };
 		63D4085160E1E8D0A668BB01 /* EXPMatchers+beSupersetOf.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "EXPMatchers+beSupersetOf.h"; path = "Expecta/Matchers/EXPMatchers+beSupersetOf.h"; sourceTree = "<group>"; };
 		6424CA8772E6C1BAA62A8837 /* SPTSharedExampleGroups.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPTSharedExampleGroups.m; path = Specta/Specta/SPTSharedExampleGroups.m; sourceTree = "<group>"; };
 		66132162B8694B319CB40E90 /* EXPMatchers+beSubclassOf.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "EXPMatchers+beSubclassOf.h"; path = "Expecta/Matchers/EXPMatchers+beSubclassOf.h"; sourceTree = "<group>"; };
@@ -939,6 +940,7 @@
 		013087363C50C484AD94A9FF /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				6371EEEA1C77BC1900AE1C91 /* button-close.pdf */,
 				AC75B08BE5BD68DA62B508AB /* ImageError.png */,
 				7FF97CACFA1943A65EE940DD /* ImageError@2x.png */,
 				6B037E45084EAB59B01EF471 /* ImageError@3x.png */,
