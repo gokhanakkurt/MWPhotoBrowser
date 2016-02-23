@@ -26,8 +26,8 @@ static const CGFloat labelPadding = 10;
     if (self) {
         self.userInteractionEnabled = NO;
         _photo = photo;
-        self.tintColor = [UIColor whiteColor];
-        self.barTintColor = [UIColor colorWithRed:240.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:1.0];
+        self.tintColor = [UIColor clearColor];
+        self.barTintColor = [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0];
         self.barStyle = UIBarStyleDefault;
         [self setBackgroundImage:nil forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin;
@@ -47,12 +47,12 @@ static const CGFloat labelPadding = 10;
 }
 
 - (void)setupCaption {
-    _label = [[UILabel alloc] initWithFrame:CGRectIntegral(CGRectMake(labelPadding, 0,
-                                                                      self.bounds.size.width-labelPadding*2,
+    _label = [[UILabel alloc] initWithFrame:CGRectIntegral(CGRectMake(0, -1,
+                                                                      self.bounds.size.width,
                                                                       self.bounds.size.height))];
     _label.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     _label.opaque = NO;
-    _label.backgroundColor = [UIColor clearColor];
+    _label.backgroundColor = [UIColor whiteColor];
     _label.textAlignment = NSTextAlignmentCenter;
     _label.lineBreakMode = NSLineBreakByWordWrapping;
     

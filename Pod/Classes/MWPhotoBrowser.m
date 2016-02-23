@@ -144,6 +144,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     
     // View
     self.view.backgroundColor = [UIColor whiteColor];
+    self.view.layer.borderColor = [UIColor whiteColor].CGColor;
     self.view.clipsToBounds = YES;
     
     // Setup paging scrolling view
@@ -158,9 +159,28 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     _pagingScrollView.contentSize = [self contentSizeForPagingScrollView];
     [self.view addSubview:_pagingScrollView];
     
+    // caption view
+    CGFloat statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
+    CGFloat y = pagingScrollViewFrame.size.height - (self.navigationController.navigationBar.frame.size.height + statusBarHeight);
+    _captionView = [[UIView alloc] initWithFrame:CGRectMake(0,  y, self.view.frame.size.width, 60)];
+    _captionView.backgroundColor = [UIColor colorWithRed:240.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:0.7];
+    
+    _captionViewLabel = [[UILabel alloc] initWithFrame:_captionView.bounds];
+    _captionViewLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    _captionViewLabel.opaque = NO;
+    _captionViewLabel.backgroundColor = [UIColor clearColor];
+    _captionViewLabel.textAlignment = NSTextAlignmentCenter;
+    _captionViewLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    
+    _captionViewLabel.numberOfLines = 0;
+    _captionViewLabel.textColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
+    _captionViewLabel.font = [UIFont fontWithName:@"Helvetica" size:16.f];
+    [_captionView addSubview:_captionViewLabel];
+    [self.view addSubview:_captionView];
+    
     // Toolbar
     _toolbar = [[UIToolbar alloc] initWithFrame:[self frameForToolbarAtOrientation:self.interfaceOrientation]];
-    _toolbar.tintColor = [UIColor blackColor];
+    _toolbar.tintColor = [UIColor whiteColor];
     _toolbar.barTintColor = nil;
     [_toolbar setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     [_toolbar setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsLandscapePhone];
@@ -191,6 +211,13 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     
     // Super
     [super viewDidLoad];
+    
+    UIImage *img = [UIImage imageNamed:_navigationImageName];
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [imgView setImage:img];
+    // setContent mode aspect fit
+    [imgView setContentMode:UIViewContentModeScaleAspectFit];
+    self.navigationItem.titleView = imgView;
     
     self.navigationItem.hidesBackButton = YES;
 }
@@ -438,7 +465,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     UINavigationBar *navBar = self.navigationController.navigationBar;
     navBar.tintColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
-    navBar.barTintColor = [UIColor colorWithRed:240.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:1.0];
+    navBar.barTintColor = [UIColor whiteColor];
     navBar.shadowImage = nil;
     navBar.translucent = false;
     navBar.barStyle = UIBarStyleDefault;
@@ -971,6 +998,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     CGRect frame = self.view.bounds;// [[UIScreen mainScreen] bounds];
     frame.origin.x -= PADDING;
     frame.size.width += (2 * PADDING);
+    frame.size.height -= 60;
     return CGRectIntegral(frame);
 }
 
@@ -1076,28 +1104,33 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 - (void)updateNavigation {
     
     // Title
+    
+
+    
+    
     NSUInteger numberOfPhotos = [self numberOfPhotos];
-    if (_gridController) {
-        if (_gridController.selectionMode) {
-            self.title = NSLocalizedString(@"Select Photos", nil);
-        } else {
-            NSString *photosText;
-            if (numberOfPhotos == 1) {
-                photosText = NSLocalizedString(@"photo", @"Used in the context: '1 photo'");
-            } else {
-                photosText = NSLocalizedString(@"photos", @"Used in the context: '3 photos'");
-            }
-            self.title = [NSString stringWithFormat:@"%lu %@", (unsigned long)numberOfPhotos, photosText];
-        }
-    } else if (numberOfPhotos > 0) {
-        if ([_delegate respondsToSelector:@selector(photoBrowser:titleForPhotoAtIndex:)]) {
-            self.title = [_delegate photoBrowser:self titleForPhotoAtIndex:_currentPageIndex];
-        } else {
-            self.title = [NSString stringWithFormat:@"%lu %@ %lu", (unsigned long)(_currentPageIndex+1), NSLocalizedString(@"of", @"Used in the context: 'Showing 1 of 3 items'"), (unsigned long)numberOfPhotos];
-        }
-    } else {
-        self.title = nil;
-    }
+    //    if (_gridController) {
+    //        if (_gridController.selectionMode) {
+    //            self.title = NSLocalizedString(@"Select Photos", nil);
+    //        } else {
+    //            NSString *photosText;
+    //            if (numberOfPhotos == 1) {
+    //                photosText = NSLocalizedString(@"photo", @"Used in the context: '1 photo'");
+    //            } else {
+    //                photosText = NSLocalizedString(@"photos", @"Used in the context: '3 photos'");
+    //            }
+    //            self.title = [NSString stringWithFormat:@"%lu %@", (unsigned long)numberOfPhotos, photosText];
+    //        }
+    //    } else if (numberOfPhotos > 0) {
+    //        if ([_delegate respondsToSelector:@selector(photoBrowser:titleForPhotoAtIndex:)]) {
+    //            self.title = [_delegate photoBrowser:self titleForPhotoAtIndex:_currentPageIndex];
+    //        } else {
+    //            self.title = [NSString stringWithFormat:@"%lu %@ %lu", (unsigned long)(_currentPageIndex+1), NSLocalizedString(@"of", @"Used in the context: 'Showing 1 of 3 items'"), (unsigned long)numberOfPhotos];
+    //        }
+    //    } else {
+    //        self.title = nil;
+    //    }
+    //
     
     // Buttons
     _previousButton.enabled = (_currentPageIndex > 0);
