@@ -164,6 +164,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     CGFloat y = pagingScrollViewFrame.size.height - (self.navigationController.navigationBar.frame.size.height + statusBarHeight);
     _captionView = [[UIView alloc] initWithFrame:CGRectMake(0,  y, self.view.frame.size.width, 60)];
     _captionView.backgroundColor = [UIColor colorWithRed:240.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:0.7];
+    _captionView.translatesAutoresizingMaskIntoConstraints = NO;
     
     _captionViewLabel = [[UILabel alloc] initWithFrame:_captionView.bounds];
     _captionViewLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
@@ -175,8 +176,14 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     _captionViewLabel.numberOfLines = 0;
     _captionViewLabel.textColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
     _captionViewLabel.font = [UIFont fontWithName:@"Helvetica" size:16.f];
+    
     [_captionView addSubview:_captionViewLabel];
     [self.view addSubview:_captionView];
+    
+    [_captionView addConstraint:[NSLayoutConstraint constraintWithItem:_captionView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:60]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_captionView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_captionView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_captionView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
     
     // Toolbar
     _toolbar = [[UIToolbar alloc] initWithFrame:[self frameForToolbarAtOrientation:self.interfaceOrientation]];
