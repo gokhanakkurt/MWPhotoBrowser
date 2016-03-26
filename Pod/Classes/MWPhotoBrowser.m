@@ -144,7 +144,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     
     // View
     self.view.backgroundColor = [UIColor whiteColor];
-    self.view.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.view.layer.borderColor = [UIColor whiteColor].CGColor;
     self.view.clipsToBounds = YES;
     
     // Setup paging scrolling view
@@ -253,7 +253,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
         UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"button-close"] landscapeImagePhone:[UIImage imageNamed:@"button-close"] style:UIBarButtonItemStylePlain target:self action:@selector(backButtonTapped)];
         barButtonItem.tintColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
         
-        self.navigationItem.rightBarButtonItem = barButtonItem;
+        self.navigationItem.leftBarButtonItem = barButtonItem;
     }
     
     // Toolbar items
