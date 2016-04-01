@@ -175,15 +175,10 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     
     _captionViewLabel.numberOfLines = 0;
     _captionViewLabel.textColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
-    _captionViewLabel.font = [UIFont fontWithName:@"Helvetica" size:16.f];
+    _captionViewLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16.f];
     
     [_captionView addSubview:_captionViewLabel];
     [self.view addSubview:_captionView];
-    
-    [_captionView addConstraint:[NSLayoutConstraint constraintWithItem:_captionView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:60]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_captionView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_captionView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_captionView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
     
     // Toolbar
     _toolbar = [[UIToolbar alloc] initWithFrame:[self frameForToolbarAtOrientation:self.interfaceOrientation]];
@@ -539,6 +534,10 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     
     // Recalculate contentSize based on current orientation
     _pagingScrollView.contentSize = [self contentSizeForPagingScrollView];
+    
+    CGFloat statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
+    CGFloat y = _pagingScrollView.frame.size.height;
+    _captionView.frame = CGRectMake(0, y, self.view.frame.size.width, 60);
     
     // Adjust frames and configuration of each visible page
     for (MWZoomingScrollView *page in _visiblePages) {
@@ -1112,7 +1111,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     
     // Title
     
-
+    
     
     
     NSUInteger numberOfPhotos = [self numberOfPhotos];
