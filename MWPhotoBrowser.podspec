@@ -29,7 +29,9 @@ Pod::Spec.new do |s|
   }
   s.platform = :ios, '7.0'
   s.source_files = 'Pod/Classes/**/*'
-  s.resource = 'MWPhotoBrowser/MWPhotoBrowser.bundle'
+  s.resource_bundles = {
+    s.name => ['MWPhotoBrowser/MWPhotoBrowser.bundle'] 
+  }
   s.requires_arc = true
 
   s.frameworks = 'ImageIO', 'QuartzCore', 'AssetsLibrary', 'MediaPlayer'
