@@ -36,7 +36,7 @@ Pod::Spec.new do |s|
     ss.frameworks = 'UIKit', 'Foundation'
   end
 
-  s.frameworks = 'ImageIO', 'QuartzCore', 'AssetsLibrary', 'MediaPlayer'
+  s.frameworks = 'ImageIO', 'QuartzCore', 'AssetsLibrary', 'MediaPlayer', 'AVKit'
   s.weak_frameworks = 'Photos'
 
   s.dependency 'MBProgressHUD', '~> 0.9'
