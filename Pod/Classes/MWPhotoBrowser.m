@@ -166,6 +166,11 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     _captionView.backgroundColor = [UIColor colorWithRed:240.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:0.7];
     _captionView.translatesAutoresizingMaskIntoConstraints = NO;
     
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(captionViewTapped:)];
+    _captionView.userInteractionEnabled = YES;
+    _captionView.tag = index;
+    [_captionView addGestureRecognizer:gestureRecognizer];
+    
     _captionViewLabel = [[UILabel alloc] initWithFrame:_captionView.bounds];
     _captionViewLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     _captionViewLabel.opaque = NO;
@@ -176,6 +181,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     _captionViewLabel.numberOfLines = 0;
     _captionViewLabel.textColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
     _captionViewLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16.f];
+    
     
     [_captionView addSubview:_captionViewLabel];
     [self.view addSubview:_captionView];
@@ -1212,6 +1218,13 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
         if (!_currentVideoPlayerViewController) {
             [self playVideoAtIndex:index];
         }
+    }
+}
+
+- (void) captionViewTapped:(UITapGestureRecognizer *) sender{
+    int index = sender.view.tag;
+    if ([_delegate respondsToSelector:@selector(photoBrowser:selectedCaptionViewAtIndex:)]) {
+        [_delegate photoBrowser:self selectedCaptionViewAtIndex:_currentPageIndex];
     }
 }
 
