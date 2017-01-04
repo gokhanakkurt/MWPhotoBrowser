@@ -159,33 +159,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     _pagingScrollView.contentSize = [self contentSizeForPagingScrollView];
     [self.view addSubview:_pagingScrollView];
     
-    // caption view
-    CGFloat statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
-    CGFloat y = pagingScrollViewFrame.size.height - (self.navigationController.navigationBar.frame.size.height + statusBarHeight);
-    _captionView = [[UIView alloc] initWithFrame:CGRectMake(0,  y, self.view.frame.size.width, 60)];
-    _captionView.backgroundColor = [UIColor colorWithRed:240.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:0.7];
-    _captionView.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(captionViewTapped:)];
-    _captionView.userInteractionEnabled = YES;
-    _captionView.tag = index;
-    [_captionView addGestureRecognizer:gestureRecognizer];
-    
-    _captionViewLabel = [[UILabel alloc] initWithFrame:_captionView.bounds];
-    _captionViewLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    _captionViewLabel.opaque = NO;
-    _captionViewLabel.backgroundColor = [UIColor clearColor];
-    _captionViewLabel.textAlignment = NSTextAlignmentCenter;
-    _captionViewLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    
-    _captionViewLabel.numberOfLines = 0;
-    _captionViewLabel.textColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
-    _captionViewLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16.f];
-    
-    
-    [_captionView addSubview:_captionViewLabel];
-    [self.view addSubview:_captionView];
-    
+
     // Toolbar
     _toolbar = [[UIToolbar alloc] initWithFrame:[self frameForToolbarAtOrientation:self.interfaceOrientation]];
     _toolbar.tintColor = [UIColor whiteColor];
@@ -258,7 +232,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
         _previousViewControllerBackButton = previousViewController.navigationItem.backBarButtonItem;
         
         
-        UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"button-close"] landscapeImagePhone:[UIImage imageNamed:@"button-close"] style:UIBarButtonItemStylePlain target:self action:@selector(backButtonTapped)];
+        UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"button-back"] landscapeImagePhone:[UIImage imageNamed:@"button-back"] style:UIBarButtonItemStylePlain target:self action:@selector(backButtonTapped)];
         barButtonItem.tintColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
         
         self.navigationItem.leftBarButtonItem = barButtonItem;
@@ -471,14 +445,6 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 
 - (void)setNavBarAppearance:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:NO animated:animated];
-    UINavigationBar *navBar = self.navigationController.navigationBar;
-    navBar.tintColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
-    navBar.barTintColor = [UIColor whiteColor];
-    navBar.shadowImage = nil;
-    navBar.translucent = false;
-    navBar.barStyle = UIBarStyleDefault;
-    [navBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-    [navBar setBackgroundImage:nil forBarMetrics:UIBarMetricsLandscapePhone];
 }
 
 - (void)storePreviousNavBarAppearance {
@@ -540,11 +506,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     
     // Recalculate contentSize based on current orientation
     _pagingScrollView.contentSize = [self contentSizeForPagingScrollView];
-    
-    CGFloat statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
-    CGFloat y = _pagingScrollView.frame.size.height;
-    _captionView.frame = CGRectMake(0, y, self.view.frame.size.width, 60);
-    
+        
     // Adjust frames and configuration of each visible page
     for (MWZoomingScrollView *page in _visiblePages) {
         NSUInteger index = page.index;
@@ -586,10 +548,6 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
     return YES;
-}
-
-- (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskAll;
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
@@ -1010,7 +968,6 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     CGRect frame = self.view.bounds;// [[UIScreen mainScreen] bounds];
     frame.origin.x -= PADDING;
     frame.size.width += (2 * PADDING);
-    frame.size.height -= 60;
     return CGRectIntegral(frame);
 }
 
@@ -1222,7 +1179,6 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 }
 
 - (void) captionViewTapped:(UITapGestureRecognizer *) sender{
-    int index = sender.view.tag;
     if ([_delegate respondsToSelector:@selector(photoBrowser:selectedCaptionViewAtIndex:)]) {
         [_delegate photoBrowser:self selectedCaptionViewAtIndex:_currentPageIndex];
     }
