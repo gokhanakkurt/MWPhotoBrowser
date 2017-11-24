@@ -379,6 +379,8 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     if (@available(iOS 11.0, *)) {
         [self layoutVisiblePages];
     }
+    
+    [self.view setNeedsLayout];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
