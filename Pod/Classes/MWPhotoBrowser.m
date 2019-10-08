@@ -233,6 +233,8 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
         
         
         UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"button-back"] landscapeImagePhone:[UIImage imageNamed:@"button-back"] style:UIBarButtonItemStylePlain target:self action:@selector(backButtonTapped)];
+        barButtonItem.imageInsets = UIEdgeInsetsMake(0, -5.0, 0.0, 0.0);
+
         barButtonItem.tintColor = [UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.0];
         
         self.navigationItem.leftBarButtonItem = barButtonItem;
