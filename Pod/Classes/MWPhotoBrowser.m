@@ -350,7 +350,12 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     // Set style
     if (!_leaveStatusBarAlone && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         _previousStatusBarStyle = [[UIApplication sharedApplication] statusBarStyle];
-        [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDarkContent animated:animated];
+        if (@available(iOS 13.0, *)) {
+            [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDarkContent animated:animated];
+        } else {
+            // Fallback on earlier versions
+            [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault animated:animated];
+        }
     }
     
     // Navigation bar appearance
